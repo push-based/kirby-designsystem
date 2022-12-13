@@ -14,7 +14,7 @@ export class LongListComponent implements OnInit {
   transactions: Transaction[];
   transactionSections: Map<string, { transactions: Transaction[] }>;
 
-  listMode: 'default' | 'experimental' = 'default';
+  listMode: 'default' | 'experimental' = 'experimental';
 
   constructor(private toastController: ToastController) {}
 

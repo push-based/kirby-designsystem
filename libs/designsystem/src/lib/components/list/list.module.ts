@@ -2,6 +2,9 @@ import { CommonModule } from '@angular/common';
 import { NgModule } from '@angular/core';
 import { IonicModule } from '@ionic/angular';
 
+import { ForModule } from '@rx-angular/template/for';
+import { ScrollingModule } from '@angular/cdk/scrolling';
+import { ScrollingModule as ExperimentalScrollingModule } from '@angular/cdk-experimental/scrolling';
 import { IconModule } from '../icon/icon.module';
 import { SpinnerModule } from '../spinner/spinner.module';
 
@@ -40,7 +43,15 @@ const declarations = [
 
 @NgModule({
   declarations: declarations,
-  imports: [CommonModule, IconModule, IonicModule, SpinnerModule],
+  imports: [
+    CommonModule,
+    IconModule,
+    IonicModule,
+    SpinnerModule,
+    ForModule,
+    ScrollingModule,
+    ExperimentalScrollingModule,
+  ],
   exports: exportedDeclarations,
   providers: [],
 })

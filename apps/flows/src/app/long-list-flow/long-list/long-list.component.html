@@ -10,6 +10,7 @@
 
   <kirby-page-content>
     <kirby-list
+      style="height: 80vh; width: 100vw"
       *ngIf="listMode === 'default'; else experimental"
       [items]="transactions"
       [getSectionName]="getSectionName"
@@ -24,15 +25,21 @@
 </kirby-page>
 
 <ng-template #experimental>
-  <kirby-list-experimental *ngFor="let section of transactionSections | keyvalue">
-    <kirby-section-header outside
-      ><h2 heading>{{ section.key }}</h2></kirby-section-header
-    >
-    <kirby-item-sliding
-      *ngFor="let transaction of section.value.transactions"
-      [swipeActions]="swipeActions"
-    >
-      <list-item [transaction]="transaction"></list-item>
-    </kirby-item-sliding>
-  </kirby-list-experimental>
+  <div>
+    <rx-virtual-scroll-viewport autosize style="height: 80vh; width: 100vw">
+      <div *rxVirtualFor="let section of transactionSections | keyvalue">
+        <kirby-list-experimental>
+          <kirby-section-header outside
+            ><h2 heading>{{ section.key }}</h2></kirby-section-header
+          >
+          <kirby-item-sliding
+            *ngFor="let transaction of section.value.transactions"
+            [swipeActions]="swipeActions"
+          >
+            <list-item [transaction]="transaction"></list-item>
+          </kirby-item-sliding>
+        </kirby-list-experimental>
+      </div>
+    </rx-virtual-scroll-viewport>
+  </div>
 </ng-template>

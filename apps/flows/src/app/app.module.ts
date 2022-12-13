@@ -4,6 +4,9 @@ import { BrowserModule } from '@angular/platform-browser';
 import { KirbyModule } from '@kirbydesign/designsystem';
 
 import { FormsModule } from '@angular/forms';
+import { ForModule } from '@rx-angular/template/for';
+import { ScrollingModule } from '@angular/cdk/scrolling';
+import { ScrollingModule as ExperimentalScrollingModule } from '@angular/cdk-experimental/scrolling';
 import { AppRoutingModule } from './app-routing.module';
 import { AppComponent } from './app.component';
 import { HomeComponent } from './home/home.component';
@@ -26,6 +29,7 @@ import { ChooseDateComponent } from './transfer-and-pay-flow/choose-date/choose-
 import { ChooseTextAndMessageComponent } from './transfer-and-pay-flow/choose-text-and-message/choose-text-and-message.component';
 import { TransferRegisteredComponent } from './transfer-and-pay-flow/transfer-registered/transfer-registered.component';
 import { DetailsComponent } from './transfer-and-pay-flow/details/details.component';
+import { AutosizeVirtualScrollStrategyModule, RxVirtualScrollingModule } from './rx-virtual-scroll';
 
 @NgModule({
   declarations: [
@@ -51,7 +55,17 @@ import { DetailsComponent } from './transfer-and-pay-flow/details/details.compon
     TransferRegisteredComponent,
     DetailsComponent,
   ],
-  imports: [BrowserModule, AppRoutingModule, KirbyModule, FormsModule],
+  imports: [
+    BrowserModule,
+    AppRoutingModule,
+    KirbyModule,
+    FormsModule,
+    ForModule,
+    ScrollingModule,
+    ExperimentalScrollingModule,
+    RxVirtualScrollingModule,
+    AutosizeVirtualScrollStrategyModule,
+  ],
   providers: [],
   bootstrap: [AppComponent],
 })

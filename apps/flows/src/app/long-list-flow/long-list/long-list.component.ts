@@ -46,6 +46,7 @@ export class LongListComponent implements OnInit {
 
     this.transactionSections = new Map<string, { transactions: Transaction[] }>();
 
+    console.log({ transactionSections: this.transactionSections });
     this.transactions.forEach((transaction) => {
       const sectionName = this.getSectionName(transaction);
       const section = this.transactionSections.get(sectionName);
@@ -73,5 +74,9 @@ export class LongListComponent implements OnInit {
 
   onModeSelect() {
     this.listMode = this.listMode === 'default' ? 'experimental' : 'default';
+  }
+
+  trackItem(_, item) {
+    return item;
   }
 }

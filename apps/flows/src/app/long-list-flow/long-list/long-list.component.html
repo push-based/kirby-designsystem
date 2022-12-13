@@ -27,7 +27,7 @@
 <ng-template #experimental>
   <div>
     <rx-virtual-scroll-viewport autosize style="height: 80vh; width: 100vw">
-      <div *rxVirtualFor="let section of transactionSections | keyvalue">
+      <div *rxVirtualFor="let section of transactionSections | keyvalue; trackBy: trackItem">
         <kirby-list-experimental>
           <kirby-section-header outside
             ><h2 heading>{{ section.key }}</h2></kirby-section-header

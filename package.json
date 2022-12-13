@@ -99,6 +99,7 @@
   "dependencies": {
     "@angular/animations": "15.0.2",
     "@angular/cdk": "15.0.1",
+    "@angular/cdk-experimental": "^15.0.2",
     "@angular/common": "15.0.2",
     "@angular/compiler": "15.0.2",
     "@angular/core": "15.0.2",
@@ -109,6 +110,8 @@
     "@fontsource/roboto": "4.2.1",
     "@ionic/angular": "6.2.1",
     "@nrwl/angular": "15.3.0",
+    "@rx-angular/state": "^1.7.0",
+    "@rx-angular/template": "^1.0.0-rc.4",
     "@types/prismjs": "1.9.0",
     "chart.js": "3.9.1",
     "chartjs-adapter-date-fns": "^2.0.0",

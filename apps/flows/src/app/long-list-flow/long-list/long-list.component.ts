@@ -1,4 +1,4 @@
-import { Component, OnInit } from '@angular/core';
+import { ChangeDetectionStrategy, Component, OnInit } from '@angular/core';
 
 import { ListSwipeAction, ToastConfig, ToastController } from '@kirbydesign/designsystem';
 
@@ -9,6 +9,7 @@ import transactionsData from '../../transactions-data.json';
   selector: 'long-list',
   templateUrl: './long-list.component.html',
   styleUrls: ['./long-list.component.scss'],
+  changeDetection: ChangeDetectionStrategy.OnPush,
 })
 export class LongListComponent implements OnInit {
   transactions: Transaction[];
@@ -44,9 +45,11 @@ export class LongListComponent implements OnInit {
   ngOnInit(): void {
     this.transactions = transactionsData.transactions;
 
-    this.transactionSections = new Map<string, { transactions: Transaction[] }>();
+    this.transactionSections = new Map<
+      string,
+      { sectionName: string; transactions: Transaction[] }
+    >();
 
-    console.log({ transactionSections: this.transactionSections });
     this.transactions.forEach((transaction) => {
       const sectionName = this.getSectionName(transaction);
       const section = this.transactionSections.get(sectionName);
@@ -77,6 +80,10 @@ export class LongListComponent implements OnInit {
   }
 
   trackItem(_, item) {
-    return item;
+    return item.key;
+  }
+
+  trackTransaction(i: number, t: Transaction) {
+    return t.id;
   }
 }

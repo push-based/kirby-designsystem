@@ -26,14 +26,20 @@
 
 <ng-template #experimental>
   <div>
-    <rx-virtual-scroll-viewport autosize style="height: 80vh; width: 100vw">
+    <rx-virtual-scroll-viewport
+      autosize
+      [tombstoneSize]="200"
+      [runwayItems]="5"
+      [runwayItemsOpposite]="5"
+      style="height: 80vh; width: 100vw"
+    >
       <div *rxVirtualFor="let section of transactionSections | keyvalue; trackBy: trackItem">
         <kirby-list-experimental>
           <kirby-section-header outside
             ><h2 heading>{{ section.key }}</h2></kirby-section-header
           >
           <kirby-item-sliding
-            *ngFor="let transaction of section.value.transactions"
+            *ngFor="let transaction of section.value.transactions; trackBy: trackTransaction"
             [swipeActions]="swipeActions"
           >
             <list-item [transaction]="transaction"></list-item>

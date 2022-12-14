@@ -15,7 +15,7 @@ export class LongListComponent implements OnInit {
   transactions: Transaction[];
   transactionSections: Map<string, { transactions: Transaction[] }>;
 
-  listMode: 'default' | 'experimental' = 'experimental';
+  listMode: 'default' | 'cdk-virtual-scroll' | 'rx-virtual-scroll' = 'default';
 
   constructor(private toastController: ToastController) {}
 
@@ -73,10 +73,6 @@ export class LongListComponent implements OnInit {
       durationInMs: 10000,
     };
     this.toastController.showToast(config);
-  }
-
-  onModeSelect() {
-    this.listMode = this.listMode === 'default' ? 'experimental' : 'default';
   }
 
   trackItem(_, item) {

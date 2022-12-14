@@ -3,15 +3,22 @@
     <button kirby-button (click)="onCogSelect()">
       <kirby-icon name="cog"></kirby-icon>
     </button>
-    <button kirby-button (click)="onModeSelect()" [attentionLevel]="'1'">
-      {{ this.listMode === 'default' ? 'experimental' : 'default' }}
+    <button kirby-button (click)="listMode = 'default'" [attentionLevel]="'1'">
+      Default
+    </button>
+    <button kirby-button (click)="listMode = 'cdk-virtual-scroll'" [attentionLevel]="'1'">
+      CDK virtual Scroll
+    </button>
+    <button kirby-button (click)="listMode = 'rx-virtual-scroll'" [attentionLevel]="'1'">
+      Rx Virtual Scroll
     </button>
   </kirby-page-actions>
 
   <kirby-page-content>
+    {{listMode}}
     <kirby-list
       style="height: 80vh; width: 100vw"
-      *ngIf="listMode === 'default'; else experimental"
+      *ngIf="listMode === 'default'"
       [items]="transactions"
       [getSectionName]="getSectionName"
       [swipeActions]="swipeActions"
@@ -21,6 +28,50 @@
       </kirby-section-header>
       <list-item *kirbyListItemTemplate="let transaction" [transaction]="transaction"> </list-item>
     </kirby-list>
+
+    <div *ngIf="listMode === 'cdk-virtual-scroll'">
+      <cdk-virtual-scroll-viewport autosize style="height: 80vh; width: 100vw;">
+        <div *cdkVirtualFor="let section of transactionSections | keyvalue">
+          <kirby-list-experimental >
+            <kirby-section-header outside
+            ><h2 heading>{{ section.key }}</h2></kirby-section-header
+            >
+            <kirby-item-sliding
+                    *ngFor="let transaction of section.value.transactions"
+                    [swipeActions]="swipeActions"
+            >
+              <list-item [transaction]="transaction"></list-item>
+            </kirby-item-sliding>
+          </kirby-list-experimental>
+        </div>
+      </cdk-virtual-scroll-viewport>
+    </div>
+
+
+    <div *ngIf="listMode === 'rx-virtual-scroll'">
+      <rx-virtual-scroll-viewport
+              autosize
+              [tombstoneSize]="200"
+              [runwayItems]="5"
+              [runwayItemsOpposite]="5"
+              style="height: 80vh; width: 100vw"
+      >
+        <div *rxVirtualFor="let section of transactionSections | keyvalue; trackBy: trackItem">
+          <kirby-list-experimental>
+            <kirby-section-header outside
+            ><h2 heading>{{ section.key }}</h2></kirby-section-header
+            >
+            <kirby-item-sliding
+                    *ngFor="let transaction of section.value.transactions; trackBy: trackTransaction"
+                    [swipeActions]="swipeActions"
+            >
+              <list-item [transaction]="transaction"></list-item>
+            </kirby-item-sliding>
+          </kirby-list-experimental>
+        </div>
+      </rx-virtual-scroll-viewport>
+    </div>
+
   </kirby-page-content>
 </kirby-page>
 
